@@ -20,7 +20,7 @@ def readFile(file):
 
 #############################################
 def readFile(file):
-    f = open(fle)
+    f = open(file)
     f = f.read().splitlines()
     
     new = []
