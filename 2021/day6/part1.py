@@ -4,14 +4,15 @@ from readFile import readFile
 
 def main(argv):
     L=[]
+    usage=("Usage: "+sys.argv[0]+' {-p -s}')
     try:
         opts, args = getopt.getopt(argv, "hps")
     except getopt.GetoptError:
-        print ('part1.py -p | -s')
+        print(usage)
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print('part1.py -p | -s')
+            print(usage)
             return 0
         elif opt == '-p':
             L = readFile("puzzleInput.txt")
