@@ -21,18 +21,15 @@ def main(argv):
     return 0
 
 def sol(L):
-    ar = [L.count(0), L.count(1), L.count(2), L.count(3), L.count(4), L.count(5), L.count(6), L.count(7), L.count(8)]
+    ar=[]
+    for i in range(9):
+        ar.append(L.count(i))
     for i in range(256):
         #print("After "+str(i)+"days:" + str(L))
         temp = ar[0]
-        ar[0]=ar[1]
-        ar[1]=ar[2]
-        ar[2]=ar[3]
-        ar[3]=ar[4]
-        ar[4]=ar[5]
-        ar[5]=ar[6]
-        ar[6]=ar[7]+temp
-        ar[7]=ar[8]
+        for i in range(8):
+            ar[i]=ar[i+1]
+        ar[6]+=temp
         ar[8]=temp
     sum=0
     for i in ar:
