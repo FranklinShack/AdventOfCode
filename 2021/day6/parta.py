@@ -1,7 +1,7 @@
 import sys, getopt
 import re, functools
 from readFile import readFile
-
+from aocd import submit
 def main(argv):
     L=[]
     usage=("Usage: "+sys.argv[0]+' {-p -s}')
@@ -18,7 +18,10 @@ def main(argv):
             L = readFile("puzzleInput.txt")
         elif opt == '-s':
             L = readFile("sampleInput.txt")
-    print (sol(L))
+    solut=sol(L)
+    print(solut)
+    #submit(solut)
+
     return 0
 
 def sol(L):
