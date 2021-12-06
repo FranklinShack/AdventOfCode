@@ -28,7 +28,7 @@ def part2(L):
                 if (i+j+k)==2020:
                     return i*j*k
 
-    return "fuck"
+    return 0
 
 
 
