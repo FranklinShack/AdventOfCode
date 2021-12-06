@@ -6,5 +6,9 @@ def readFile(file):
     new = []
     for i in f:
         new.append(re.split(' |\n',i))
+    new2=[]
+    for i in new:
+        for j in i:
+            new2.append(re.split(':', j))
     
-    return new
+    return new2

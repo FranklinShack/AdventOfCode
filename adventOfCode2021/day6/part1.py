@@ -17,11 +17,19 @@ def main(argv):
             L = readFile("puzzleInput.txt")
         elif opt == '-s':
             L = readFile("sampleInput.txt")
-    print (part1(L))
+    print (sol(L))
     return 0
 
-def part1(L):
-    return 0
+def sol(L):
+    for i in range(80):
+        #print("After "+str(i)+"days:" + str(L))
+        for j in range(len(L)):
+            if(L[j]==0):
+                L[j] = 6
+                L.append(8)
+            else:
+                L[j] = L[j]-1
+    return len(L)
 
 
 
