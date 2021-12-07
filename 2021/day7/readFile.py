@@ -1,6 +1,6 @@
 def readFile(file):
     f = open(file)
-    f = f.read().splitlines()
+    f = f.read().split(",")
 
     #make ints
     new = []

@@ -2,7 +2,6 @@ import sys, getopt
 import re, functools
 from readFile import readFile
 from aocd import submit
-from aocd import lines, numbers
 def main(argv):
     L=[]
     usage=("Usage: "+sys.argv[0]+' {-p -s}')
@@ -21,12 +20,24 @@ def main(argv):
             L = readFile("sampleInput.txt")
     solut=sol(L)
     print(solut)
-    #submit(solut)
+    submit(solut)
 
     return 0
 
+def trinum(n):
+    return ((n*n)+n)//2
 def sol(L):
-    return 0
+    pos=[]
+    cost=[]
+    for i in range(max(L)+1):
+        pos.append(L.count(i))
+        cost.append(0)
+
+    for i in range(len(pos)):
+        for j in range(len(pos)):
+            cost[i]+=trinum(abs(i-j))*pos[j]
+
+    return min(cost)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
