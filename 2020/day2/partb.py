@@ -13,7 +13,7 @@ def main(argv):
         if opt == '-h':
             print('part1.py -p | -s')
             return 0
-        elif opt == '-p':
+        elif opt == '-p':HALSKJHKLAJDFHLQSKAJDHFLJASDFNsdNC A,MSNDCASDCKLJSDFLSDKHFLKASJDF
             L = readFile("puzzleInput.txt")
         elif opt == '-s':
             L = readFile("sampleInput.txt")
