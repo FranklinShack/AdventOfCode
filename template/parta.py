@@ -1,13 +1,15 @@
 import sys, getopt
-import re, functools
-from readFile import readFile
+sys.path.append('../../..')
+import re, functools, itertools, collections, math
+from AdventOfCode.aocUtils import *
 from aocd import submit
 
 def main(argv):
     L=[]
-    usage=("Usage: "+sys.argv[0]+' {-p -s}')
+    submitFlag = False
+    usage=("Usage: "+sys.argv[0]+' {-p -s -r}')
     try:
-        opts, args = getopt.getopt(argv, "hps")
+        opts, args = getopt.getopt(argv, "hpsr")
     except getopt.GetoptError:
         print(usage)
         sys.exit(2)
@@ -19,14 +21,19 @@ def main(argv):
             L = readFile("puzzleInput.txt")
         elif opt == '-s':
             L = readFile("sampleInput.txt")
-    solut=sol(L)
-    print(solut)
-    #submit(solut)
+        elif opt == '-r':
+            submitFlag = True
+    solution=solve(L)
+    print(solution)
+
+    if submitFlag:
+        submit(solution)
 
     return 0
 
-def sol(L):
-    return 0
+def solve(L):
+    answer = 0
+    return answer
 
 if __name__ == "__main__":
    main(sys.argv[1:])

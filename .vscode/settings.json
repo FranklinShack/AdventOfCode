@@ -1,0 +1,6 @@
+{
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportUndefinedVariable": "information",
+        "reportMissingImports": "information"
+    }
+}

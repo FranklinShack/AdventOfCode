@@ -1,6 +1,6 @@
 import sys, getopt
 sys.path.append('../../..')
-import re, functools,itertools
+import re, functools, itertools
 from AdventOfCode.aocUtils import *
 from aocd import submit
 
@@ -33,6 +33,16 @@ def main(argv):
 
 def solve(L):
     answer = 0
+    elves = []
+    calSum = 0
+    for cals in L:
+        if cals == '':
+            elves.append(calSum)
+            calSum=0
+        else:
+            calSum += int(cals)
+    elves.append(calSum)
+    answer = max(elves)
     return answer
 
 if __name__ == "__main__":
