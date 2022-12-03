@@ -35,17 +35,16 @@ def solve(L):
     answer = 0
     print(L)
     for s in L:
-        s1 = s[:len(s)/2]
-        s2 = s[len(s)/2::]
+        s1 = s[:(len(s)//2)]
+        s2 = s[(len(s)//2)::]
 
         item = list(set(s1).intersection(set(s2)))[0]
 
-        print(item)
 
         if item in LETTERS_LOWER:
-            answer += LETTERS_LOWER.find(item)+1
+            answer += LETTERS_LOWER.index(item)+1
         elif item in LETTERS_UPPER:
-            answer += LETTERS_LOWER.find(item)+27
+            answer += LETTERS_UPPER.index(item)+27
 
     return answer
 

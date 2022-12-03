@@ -33,20 +33,32 @@ def main(argv):
 
 def solve(L):
     answer = 0
-    print(L)
-    for s in L:
-        s1 = s[:len(s)/2]
-        s2 = s[len(s)/2::]
+    oppLets = ['C', 'B', 'A']
+    meLets  = ['Z', 'Y', 'X']
+    outcome = 0
+    me = ''
+    opp = ''
+    for x in L:
+        opp = x[0]
+        me = x[2]
 
-        item = list(set(s1).intersection(set(s2)))[0]
+        if meLets.index(me) == oppLets.index(opp):
+            outcome = abs(meLets.index(me)-2)*3 + (oppLets.index(opp))+1
 
-        print(item)
+        if ((me == 'X' and opp == 'B') or (me == 'Y' and opp == 'C')):
+            outcome = abs(meLets.index(me)-2)*3 + (oppLets.index(opp)-1)%3 + 1
 
-        if item in LETTERS_LOWER:
-            answer += LETTERS_LOWER.find(item)+1
-        elif item in LETTERS_UPPER:
-            answer += LETTERS_LOWER.find(item)+27
-
+        elif( (me  == 'Y' and opp == 'A')):
+            outcome = abs(meLets.index(me)-2)*3 + (abs(meLets.index(me)-2))
+        elif (me == 'Z' and opp == 'B'):
+            outcome = 9
+        elif (me == 'X' and opp == 'C'):
+            outcome = 2
+        elif (me == 'Z' and opp == 'A'):
+            outcome = 8
+        print(outcome)
+        answer += outcome
+    
     return answer
 
 if __name__ == "__main__":

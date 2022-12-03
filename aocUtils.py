@@ -12,18 +12,21 @@ def readFile(file):
     f = f.read().splitlines()
 
     #make ints
-    new = []
-    for i in f:
-        new.append(i)
+    new = f
+    #for i in f:
+        #new.append(i)
     return new
 
 
 
 ######################## USEFUL CONSTS ########################
 
-LETTERS = [x for x in 'abcdefghijklmnopqrstuvwxyz']
-VOWELS = set([x for x in 'aeiou'])
-CONSONANTS = set([x for x in LETTERS if x not in VOWELS])
+LETTERS_LOWER = [x for x in 'abcdefghijklmnopqrstuvwxyz']
+LETTERS_UPPER = [x for x in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
+VOWELS_LOWER = set([x for x in 'aeiou'])
+VOWELS_UPPER = set([x for x in 'AEIOU'])
+CONSONANTS_LOWER = set([x for x in LETTERS_LOWER if x not in VOWELS_LOWER])
+CONSONANTS_LUPPER = set([x for x in LETTERS_UPPER if x not in VOWELS_UPPER])
 
 ######################## MATH STUFF ########################
 
@@ -116,7 +119,11 @@ def transpose_matrix(matrix):
         new_matrix.append(new_row)
     return new_matrix
 
-
+def flip_matrix_vertical(matrix):
+    new_matrix = []
+    for i in list(range(len(matrix)))[::-1]:
+        new_matrix.append(matrix[i])
+    return new_matrix
 
 ######################## SETS AND UNIQUENESS ########################
 

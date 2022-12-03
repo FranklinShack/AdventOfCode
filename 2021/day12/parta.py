@@ -1,13 +1,15 @@
 import sys, getopt
-import re, functools
-from readFile import readFile
+sys.path.append('../../..')
+import re, functools, itertools, collections, math
+from AdventOfCode.aocUtils import *
 from aocd import submit
 
 def main(argv):
     L=[]
-    usage=("Usage: "+sys.argv[0]+' {-p -s}')
+    submitFlag = False
+    usage=("Usage: "+sys.argv[0]+' {-p -s -r}')
     try:
-        opts, args = getopt.getopt(argv, "hps")
+        opts, args = getopt.getopt(argv, "hpsr")
     except getopt.GetoptError:
         print(usage)
         sys.exit(2)
@@ -19,76 +21,60 @@ def main(argv):
             L = readFile("puzzleInput.txt")
         elif opt == '-s':
             L = readFile("sampleInput.txt")
-    solut=sol(L)
-    print(solut)
-    #submit(solut)
+        elif opt == '-r':
+            submitFlag = True
+    solution=solve(L)
+    print(solution)
+
+    if submitFlag:
+        submit(solution)
 
     return 0
 
-class Tree_structure:
-   def __init__(self, data=None):
-      self.key = data
-      self.children = []
+def solve(L):
+    answer = 0
 
-   def set_root_node(self, data):
-      self.key = data
+    connections = []
+    for connection in L:
+        connections.append(connection.split('-'))
 
-   def add_vals(self, node):
-      self.children.append(node)
+    nodes = []
+    for connection in connections:
+        nodes.append(connection[0])
+        nodes.append(connection[1])
+    nodes = sorted(list(set(nodes)))
 
-   def search_val(self, key):
-      if self.key == key:
-         return self
-      for child in self.children:
-         temp = child.search(key)
-         if temp is not None:
-            return temp
-      return None
+    canVisit = []
+    for node in nodes:
+        lst = []
+        for connection in connections:
+            if(connection[0] == node):
+                lst.append(connection[1])
+            elif(connection[1] == node):
+                lst.append(connection[0])
+        canVisit.append(lst)
+    
+    visits = list(zip(nodes,canVisit))
 
-   def count_leaf_node(self):
-      leaf_nodes = []
-      self.count_leaf_node_helper_fun(leaf_nodes)
-      return len(leaf_nodes)
+    visitCounts = dict(zip(nodes, [0]*len(nodes)))
+    print(visitCounts)
 
-   def count_leaf_node_helper_fun(self, leaf_nodes):
-    if self.children == []:
-        leaf_nodes.append(self)
-    else:
-        print(len(self.children))
-        for child in range(len(self.children)):
-            self.children[child].count_leaf_node_helper_fun(leaf_nodes)
+    def traverse(node, visitCounts):
+        nonlocal answer
+        visitCounts[node] += 1
+        if node == 'end':
+            answer+=1
+            return 0
 
+        for nextNode in visits[nodes.index(node)][1]:
+            
+            if nextNode[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' or visitCounts[nextNode] < 1:
+                traverse(nextNode, visitCounts.copy())
+        return 0
 
+    traverse('start', visitCounts.copy())
 
-
-
-def findPaths(L, start, paths, visited):
-
-    visited=[start] if (ord(start)>96 and ord(start)<123) else []
-
-    for i in L:
-        if i[0] == start and start not in visited:
-            if i[1] == "end":
-                return Tree_structure("end")
-
-            if ord(i[1])>96 and ord(i[1])<123:
-                visited.append(i[1])
-            child = Tree_structure(i[1])
-            child.children = findPaths(L, i[1], [], visited)
-            paths.append(child)
-                
-    return paths
-
-
-def sol(L):
-    paths=Tree_structure("start")
-    for i in range(len(L)):
-        if L[i][0]=="start":
-            child = Tree_structure(L[i][1])
-            child.children = findPaths(L, L[i][1], [], [])
-            paths.children.append(child)
-
-    return paths.count_leaf_node()
+    return answer
 
 if __name__ == "__main__":
    main(sys.argv[1:])
