@@ -21,6 +21,7 @@ def main(argv):
             L = readFile("puzzleInput.txt")
         elif opt == '-s':
             L = readFile("sampleInput.txt")
+            print(L)
         elif opt == '-r':
             submitFlag = True
     solution=solve(L)
@@ -32,7 +33,30 @@ def main(argv):
     return 0
 
 def solve(L):
-    answer = 0
+    answer = ""
+    towers = []
+    instructions = []
+    for str in L:
+        if('[' in str):
+            towerNum = 0
+            for i in list(range(len(str)-1))[::4]:
+                if towerNum <= len(towers):
+                    towers.append([])
+                if str[i+1] != ' ':
+                    towers[towerNum].append(str[i+1])
+                towerNum+=1
+        elif 'm' in str:
+            count = int(str[4:7])
+            fromTower = int(str[12:14]) if  count < 10 else int(str[13:15])
+            toTower = int(str[17:19]) if count < 10 else int(str[18:20])
+            
+            for i in range(count):
+                towers[toTower-1].insert(0, towers[fromTower-1][count-1-i])
+                del towers[fromTower-1][count-1-i]
+
+    for tower in towers:
+        if tower != []:
+            answer += tower[0]
     return answer
 
 if __name__ == "__main__":
