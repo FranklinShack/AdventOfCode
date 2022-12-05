@@ -12,9 +12,12 @@ def readFile(file):
     f = f.read().splitlines()
 
     #make ints
-    new = f
-    #for i in f:
-        #new.append(i)
+    new = []
+    for i in f:
+        lst = []
+        for x in i.split(','):
+            lst.append(x.split("-"))
+        new.append(lst)
     return new
 
 

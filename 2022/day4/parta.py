@@ -33,6 +33,11 @@ def main(argv):
 
 def solve(L):
     answer = 0
+    for lst in L:
+        p1 = set(list(range(int(lst[0][0]), int(lst[0][1])+1)))
+        p2 = set(list(range(int(lst[1][0]), int(lst[1][1])+1)))
+        if(p1.intersection(p2) == p1 or p2.intersection(p1) == p2):
+            answer+=1
     return answer
 
 if __name__ == "__main__":
